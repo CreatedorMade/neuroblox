@@ -119,8 +119,23 @@ public class Brain {
 		t++;
 	}
 	
-	public void placeNeuron(AbstractNeuron n){
-		
+	public boolean placeNeuron(AbstractNeuron n){
+		int count = 0;
+		for(int x = 0; x < size; x++)
+			for(int y = 0; y < size; y++)
+				for(int z = 0; z < size; z++)
+					if(neurons[x][y][z] != null){
+						count++;
+					}
+		if(count == 0) return false;
+		while(true) // this is probably a bad idea
+			for(int x = 0; x < size; x++)
+				for(int y = 0; y < size; y++)
+					for(int z = 0; z < size; z++)
+						if(neurons[x][y][z] != null && Math.random() < 1.0/(double) (count)){
+							neurons[x][y][z] = n;
+							return true;
+						}
 	}
 	
 }
