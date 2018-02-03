@@ -4,9 +4,8 @@ public abstract class AbstractNeuron {
 	public AbstractNeuron(){
 		facing = (int) Math.round(Math.random()*5);
 	}
-	public AbstractNeuron(String fromString){}
 	
-	int facing = Brain.TOP;
+	public int facing = Brain.TOP;
 	
 	public double[] dataIn = {0, 0, 0, 0, 0, 0}; 
 	public double[] dataOut = {0, 0, 0, 0, 0, 0};
@@ -29,8 +28,4 @@ public abstract class AbstractNeuron {
 	}
 	
 	public abstract void tick(int t);
-	
-	public String saveString(){
-		return "";
-	}
 }
