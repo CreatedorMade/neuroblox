@@ -5,6 +5,8 @@ import neuroblox.*;
 public class Game implements Runnable {
 	public boolean finished = false;
 	
+	boolean setRealtime = false;
+	
 	boolean fromBatch = false;
 	boolean generated = false;
 	
@@ -112,11 +114,16 @@ public class Game implements Runnable {
 				time += 1.0/60;
 				energy -= 1.0/60;
 				if(energy < 0){
+					if(time > 60 && !realtime){
+						System.err.println("A brain got more than 60s! Switching to realtime on next batch.");
+						setRealtime = true;
+					}
+					
 					batch[iterations] = b;
 					scores[iterations] = time;
 					
 					iterations++;
-					if(iterations%256 == 0)System.out.println("Iteration "+iterations);
+					if((iterations+1)%256 == 0)System.out.println("Iteration "+iterations+" ("+(((float) (iterations)+1)/40.96)+"%)");
 					
 					time = 0;
 					energy = 15;
@@ -144,6 +151,7 @@ public class Game implements Runnable {
 						b.placeNeuron(generateNeuron());
 					}
 				} else if(fromBatch && !generated){
+					if(setRealtime) realtime = true;
 					System.out.println("----\nBatch finished. Generating new...\n----");
 					double highest = 0;
 					int highestIndex = 0;
