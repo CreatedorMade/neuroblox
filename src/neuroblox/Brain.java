@@ -128,7 +128,7 @@ public class Brain {
 						count++;
 					}
 		if(count == 0) return false;
-		while(true) // this is probably a bad idea
+		while(true) // this is probably a bad idea, but i'll do whatever i damn well please
 			for(int x = 0; x < size; x++)
 				for(int y = 0; y < size; y++)
 					for(int z = 0; z < size; z++)
