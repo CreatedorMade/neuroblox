@@ -115,9 +115,8 @@ public class Game implements Runnable {
 					batch[iterations] = b;
 					scores[iterations] = time;
 					
-					System.out.print("Lasted for "+time+" seconds (iteration ");
 					iterations++;
-					System.out.println(iterations+")");
+					if(iterations%256 == 0)System.out.println("Iteration "+iterations);
 					
 					time = 0;
 					energy = 15;
@@ -145,6 +144,7 @@ public class Game implements Runnable {
 						b.placeNeuron(generateNeuron());
 					}
 				} else if(fromBatch && !generated){
+					System.out.println("----\nBatch finished. Generating new...\n----");
 					double highest = 0;
 					int highestIndex = 0;
 					for(int i = 0; i < 4096; i++){
