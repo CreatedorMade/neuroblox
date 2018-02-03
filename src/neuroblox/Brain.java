@@ -1,7 +1,5 @@
 package neuroblox;
 
-import java.util.Arrays;
-
 public class Brain {
 	
 	public static final int BTM = 0; // +Z
@@ -22,7 +20,7 @@ public class Brain {
 	private double[][] wstFace;
 	private double[][] estFace;
 	
-	private AbstractNeuron[][][] neurons;
+	public AbstractNeuron[][][] neurons;
 	
 	public Brain(int size){
 		this.size = size;
@@ -187,8 +185,20 @@ public class Brain {
 	
 	public void dump(){
 		String str = "Brain data:\n";
-		str += Arrays.deepToString(neurons);
-		System.out.println(str);
+		for(int z = 0; z < size; z++){
+			for(int x = 0; x < size; x++){
+				for(int y = 0; y < size; y++){
+					str += "["+neurons[x][y][z]+" ";
+					for(int i = 0; i < 6; i++){
+						str += getDataFrom(x,y,z,i) + " ";
+					}
+					str += "]  ";
+				}
+				str+="\n";
+			}
+			str+="\n";
+		}
+		System.out.print(str);
 	}
 	
 }

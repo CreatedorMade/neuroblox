@@ -8,7 +8,6 @@ public class passNeuron extends neuroblox.AbstractNeuron {
 		super();
 	}
 	
-	@Override
 	public void tick(int t) {
 		super.dataOut[Brain.TOP] = super.dataIn[Brain.BTM];
 		super.dataOut[Brain.BTM] = super.dataIn[Brain.TOP];
