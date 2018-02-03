@@ -1,13 +1,15 @@
 package neuroblox;
 
 public abstract class AbstractNeuron {
-	public AbstractNeuron(){}
+	public AbstractNeuron(){
+		facing = (int) Math.round(Math.random()*5);
+	}
 	public AbstractNeuron(String fromString){}
 	
 	int facing = Brain.TOP;
 	
-	private double[] dataIn = {0, 0, 0, 0, 0, 0}; 
-	private double[] dataOut = {0, 0, 0, 0, 0, 0};
+	public double[] dataIn = {0, 0, 0, 0, 0, 0}; 
+	public double[] dataOut = {0, 0, 0, 0, 0, 0};
 	
 	final void setInData(double...ds){
 		try{
@@ -26,7 +28,7 @@ public abstract class AbstractNeuron {
 		return dataOut;
 	}
 	
-	abstract void tick(int t);
+	public abstract void tick(int t);
 	
 	public String saveString(){
 		return "";

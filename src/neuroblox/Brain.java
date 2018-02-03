@@ -1,5 +1,7 @@
 package neuroblox;
 
+import java.util.Arrays;
+
 public class Brain {
 	
 	public static final int BTM = 0; // +Z
@@ -124,7 +126,7 @@ public class Brain {
 		for(int x = 0; x < size; x++)
 			for(int y = 0; y < size; y++)
 				for(int z = 0; z < size; z++)
-					if(neurons[x][y][z] != null){
+					if(neurons[x][y][z] == null){
 						count++;
 					}
 		if(count == 0) return false;
@@ -132,10 +134,61 @@ public class Brain {
 			for(int x = 0; x < size; x++)
 				for(int y = 0; y < size; y++)
 					for(int z = 0; z < size; z++)
-						if(neurons[x][y][z] != null && Math.random() < 1.0/(double) (count)){
+						if(neurons[x][y][z] == null && Math.random() < 1.0/(double) (count)){
 							neurons[x][y][z] = n;
 							return true;
 						}
+	}
+	
+	public void setInputAt(double d, int x, int y, int r){
+		try{
+			if(r == BTM){
+				btmFace[x][y] = d;
+			} else if(r == TOP){
+				topFace[x][y] = d;
+			} else if(r == EST){
+				estFace[x][y] = d;
+			} else if(r == WST){
+				wstFace[x][y] = d;
+			} else if(r == NRT){
+				nrtFace[x][y] = d;
+			} else if(r == STH){
+				sthFace[x][y] = d;
+			} else {
+				debug("setInputAt() failed - unknown direction");
+			}
+		} catch(ArrayIndexOutOfBoundsException e){
+			debug("setInputAt() failed - index out of bounds");
+		}
+	}
+	
+	public double getOutputAt(int x, int y, int r){
+		try{
+			if(r == BTM){
+				return getDataFrom(x, y, size-1, BTM);
+			} else if(r == TOP){
+				return getDataFrom(x, y, 0, TOP);
+			} else if(r == EST){
+				return getDataFrom(x, 0, y, EST);
+			} else if(r == WST){
+				return getDataFrom(x, size-1, y, WST);
+			} else if(r == NRT){
+				return getDataFrom(size-1, x, y, NRT);
+			} else if(r == STH){
+				return getDataFrom(0, x, y, STH);
+			} else {
+				debug("getOutputAt() failed - unknown direction");
+			}
+		} catch(ArrayIndexOutOfBoundsException e){
+			debug("getOutputAt() failed - index out of bounds");
+		}	
+		return 0;
+	}
+	
+	public void dump(){
+		String str = "Brain data:\n";
+		str += Arrays.deepToString(neurons);
+		System.out.println(str);
 	}
 	
 }
